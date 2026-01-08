@@ -1,0 +1,26 @@
+{
+  "name": "media-converter-backend",
+  "version": "1.0.0",
+  "description": "后端服务，用于实现真实的视频提取功能",
+  "main": "video-service.js",
+  "scripts": {
+    "start": "node video-service.js",
+    "dev": "nodemon video-service.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "http-proxy-middleware": "^2.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "keywords": [
+    "video",
+    "download",
+    "converter",
+    "media"
+  ],
+  "author": "Media Converter",
+  "license": "MIT"
+}

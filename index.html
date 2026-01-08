@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>媒体文件提取与格式转换器</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>功能选择</h2>
+            <ul class="nav">
+                <li><a href="#" class="nav-item active" data-function="video-download">视频下载</a></li>
+                <li><a href="#" class="nav-item" data-function="image-convert">图片转换</a></li>
+                <li><a href="#" class="nav-item" data-function="video-convert">视频转换</a></li>
+                <li><a href="#" class="nav-item" data-function="audio-convert">音频转换</a></li>
+                <li><a href="#" class="nav-item" data-function="image-base64">图片转Base64</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <div class="header">
+                <h1>媒体文件提取与格式转换器</h1>
+            </div>
+            
+            <div class="function-container">
+                <!-- 视频下载功能 -->
+                <div class="function-panel active" id="video-download-panel">
+                    <h3>视频下载</h3>
+                    <div class="input-group">
+                        <label for="video-url">视频链接:</label>
+                        <div class="input-with-buttons">
+                            <input type="text" id="video-url" placeholder="请输入视频网站链接（如B站、YouTube等）">
+                            <button type="button" id="paste-url-btn" class="btn icon-btn" title="粘贴链接">📋</button>
+                            <button type="button" id="clear-url-btn" class="btn icon-btn" title="清除链接">✕</button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button type="button" id="switch-batch-btn" class="btn">切换: 批量解析</button>
+                        <button type="button" id="download-video-btn" class="btn primary">解析视频</button>
+                    </div>
+                    
+                    <!-- 批量解析区域 -->
+                    <div id="batch-input-area" style="display: none; margin: 20px 0;">
+                        <label for="batch-urls">批量输入视频链接 (每行一个):</label>
+                        <textarea id="batch-urls" placeholder="请输入多个视频链接，每行一个..." style="width: 100%; height: 150px; padding: 10px; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                        <div style="margin-top: 10px;">
+                            <button type="button" id="parse-batch-btn" class="btn primary">批量解析</button>
+                        </div>
+                    </div>
+                    
+                    <div class="result-area">
+                        <h4>解析结果</h4>
+                        <div id="video-download-result"></div>
+                    </div>
+                </div>
+                
+                <!-- 图片转换功能 -->
+                <div class="function-panel" id="image-convert-panel">
+                    <h3>图片格式转换</h3>
+                    <div class="upload-area-container">
+                        <div class="upload-area" id="image-upload-area">
+                            <p>拖拽图片文件到此处或点击上传</p>
+                            <input type="file" id="image-upload" accept="image/*" multiple>
+                        </div>
+                        <div class="upload-buttons">
+                            <button type="button" id="paste-image-btn" class="btn" title="从剪贴板粘贴图片">粘贴图片</button>
+                            <button type="button" id="clear-image-btn" class="btn" title="清除已选图片">清除图片</button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <label for="image-format">转换为:</label>
+                        <select id="image-format">
+                            <option value="jpg">JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                            <option value="gif">GIF</option>
+                        </select>
+                        <button type="button" id="convert-image-btn" class="btn primary">转换图片</button>
+                    </div>
+                    
+                    <div class="result-area">
+                        <h4>转换结果</h4>
+                        <div id="image-convert-result"></div>
+                    </div>
+                </div>
+                
+                <!-- 视频转换功能 -->
+                <div class="function-panel" id="video-convert-panel">
+                    <h3>视频格式转换</h3>
+                    <div class="upload-area-container">
+                        <div class="upload-area" id="video-upload-area">
+                            <p>拖拽视频文件到此处或点击上传</p>
+                            <input type="file" id="video-upload" accept="video/*" multiple>
+                        </div>
+                        <div class="upload-buttons">
+                            <button type="button" id="paste-video-btn" class="btn" title="从剪贴板粘贴">粘贴文件</button>
+                            <button type="button" id="clear-video-btn" class="btn" title="清除已选文件">清除文件</button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <label for="video-format">转换为:</label>
+                        <select id="video-format">
+                            <option value="mp4">MP4</option>
+                            <option value="avi">AVI</option>
+                            <option value="mov">MOV</option>
+                            <option value="mkv">MKV</option>
+                            <option value="webm">WebM</option>
+                        </select>
+                        <button type="button" id="convert-video-btn" class="btn primary">转换视频</button>
+                    </div>
+                    
+                    <div class="result-area">
+                        <h4>转换结果</h4>
+                        <div id="video-convert-result"></div>
+                    </div>
+                </div>
+                
+                <!-- 音频转换功能 -->
+                <div class="function-panel" id="audio-convert-panel">
+                    <h3>音频格式转换</h3>
+                    <div class="upload-area-container">
+                        <div class="upload-area" id="audio-upload-area">
+                            <p>拖拽音频文件到此处或点击上传</p>
+                            <input type="file" id="audio-upload" accept="audio/*" multiple>
+                        </div>
+                        <div class="upload-buttons">
+                            <button type="button" id="paste-audio-btn" class="btn" title="从剪贴板粘贴">粘贴文件</button>
+                            <button type="button" id="clear-audio-btn" class="btn" title="清除已选文件">清除文件</button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <label for="audio-format">转换为:</label>
+                        <select id="audio-format">
+                            <option value="mp3">MP3</option>
+                            <option value="wav">WAV</option>
+                            <option value="ogg">OGG</option>
+                            <option value="flac">FLAC</option>
+                        </select>
+                        <button type="button" id="convert-audio-btn" class="btn primary">转换音频</button>
+                    </div>
+                    
+                    <div class="result-area">
+                        <h4>转换结果</h4>
+                        <div id="audio-convert-result"></div>
+                    </div>
+                </div>
+                
+                <!-- 图片转Base64功能 -->
+                <div class="function-panel" id="image-base64-panel">
+                    <h3>图片与Base64互转</h3>
+                    <div class="upload-area-container">
+                        <!-- 图片上传区域（默认显示） -->
+                        <div class="upload-area" id="image-upload-area-base64">
+                            <p>拖拽图片文件到此处或点击上传</p>
+                            <input type="file" id="base64-upload" accept="image/*">
+                        </div>
+                        
+                        <!-- Base64文本输入区域（切换后显示） -->
+                        <div class="upload-area" id="base64-input-area" style="display: none;">
+                            <p>粘贴Base64编码到此处</p>
+                            <textarea id="base64-input" placeholder="粘贴Base64编码..." style="width: 100%; height: 150px; padding: 10px; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                        </div>
+                        
+                        <div class="upload-buttons">
+                            <button type="button" id="switch-mode-btn" class="btn" title="切换转换模式">切换: Base64转图片</button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button type="button" id="process-btn" class="btn primary">图片转Base64</button>
+                        <button type="button" id="copy-base64-btn" class="btn">复制到剪贴板</button>
+                    </div>
+                    
+                    <div class="result-area">
+                        <h4>结果</h4>
+                        <textarea id="base64-result" readonly></textarea>
+                        <div id="image-base64-result"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 模块脚本 - 移动到body底部以确保DOM完全加载 -->
+    <script src="js/modules/videoExtractor.js" defer></script>
+    <script src="js/modules/formatConverter.js" defer></script>
+    <script src="js/modules/fileUploader.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
