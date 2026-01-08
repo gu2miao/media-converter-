@@ -20,7 +20,7 @@
 - `formatConverter.js`: 格式转换模块
 - `fileUploader.js`: 文件上传处理模块
 - `style.css`: 样式文件
-- `yt-dlp.exe`:提供视频提取功能的模块（来自于https://github.com/yt-dlp/yt-dlp项目）
+- `yt-dlp.exe`:提供视频提取功能的模块（来自于https://github.com/yt-dlp/yt-dlp 项目）
 
 ## 使用方法
 
